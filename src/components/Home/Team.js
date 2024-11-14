@@ -6,41 +6,43 @@ const TeamBoard = () => {
     {
       name: 'Sami K Haridas',
       role: 'Startup Mentor | Founder of Fly Network',
-      subbrole:'Managing Director of Brand Stories Business Magazine',
-      image:'/Image.png',
+      subbrole: 'Managing Director of Brand Stories Business Magazine',
+      image: '/Image.png',
       description: 'Sami K Haridas is an entrepreneur and startup mentor with a diverse corporate background. With more than 7 years of experience  in the hospitality industry, he has worked in different senior management roles. He has incorporated across top brands such as McDonalads, KFC and 5-star hotels, abroad including locations like  UAE and London. As an NRI businessman, he has developed valuable insights in the fast food and luxury hospitality sectors. In 2016 Sami ventured into entrepreneurship by founding his own brand, unfolding a new chapter in his career.'
     }
   ];
 
   const boardMembers = [
-    { name: 'Dr. Thomas George K', role: 'Director at Lead College', image:'/Image.png' },
-    { name: 'Mr. Renjith Raj', role: 'Managing Partner at Paddle Consultants', image:'/Image.png' },
-    { name: 'Mr. Mathew Joseph', role: 'Founder - FreshToHome', image:'/Image.png' },
-    { name: 'Mr. Jobin S Kottaram', role: 'Founder - Absolute IAS Academy', image:'/Image.png' },
-    { name: 'Mr. Prasobh P', role: 'CEO Hemito Digital' , image:'/Image.png'},
-    { name: 'Mr. Subilal K', role: 'Automation Coach', image:'/Image.png' },
-    { name: 'Mr. Suresh Kumar K', role: 'Founder - Skybertech', image:'/Image.png' },
-    { name: 'Mr. Madhu Bhaskaran', role: 'Director Samagra', image:'/Image.png' },
-    { name: 'Mr. Shihabudheen', role: 'AI Consultant', image:'/Image.png' },
+    { name: 'Dr. Thomas George K', role: 'Director at Lead College', image: '/Image.png' },
+    { name: 'Mr. Renjith Raj', role: 'Managing Partner at Paddle Consultants', image: '/Image.png' },
+    { name: 'Mr. Mathew Joseph', role: 'Founder - FreshToHome', image: '/Image.png' },
+    { name: 'Mr. Jobin S Kottaram', role: 'Founder - Absolute IAS Academy', image: '/Image.png' },
+    { name: 'Mr. Prasobh P', role: 'CEO Hemito Digital', image: '/Image.png' },
+    { name: 'Mr. Subilal K', role: 'Automation Coach', image: '/Image.png' },
+    { name: 'Mr. Suresh Kumar K', role: 'Founder - Skybertech', image: '/Image.png' },
+    { name: 'Mr. Madhu Bhaskaran', role: 'Director Samagra', image: '/Image.png' },
+    { name: 'Mr. Shihabudheen', role: 'AI Consultant', image: '/Image.png' },
   ];
 
   return (
-    <div className="min-h-screen p-4 md:p-8">
+    // <div className="min-h-screen p-4 md:p-8">
+    <div className=" p-4 md:p-8">
       {/* Executive Team Section */}
-      <section className="mb-16">
+      {/* <section className="mb-16"> */}
+      <section className="">
         <h2 className="text-3xl md:text-4xl text-white mb-8 font-light" data-aos="fade-in">Our Executive Team</h2>
         {executiveTeam.map((executive, index) => (
           <div key={index} className=" backdrop-blur-sm rounded-lg p-6 md:flex  md:flex-row gap-6 items-center" data-aos="fade-in">
-           <div className='flex justify-center'>
-           <div className="w-48 h-48 md:w-56 md:h-56 flex justify-center">
-              <Image src={executive.image} className="w-full h-full bg-gray-300 rounded-lg" width={300} height={300} />
+            <div className='flex justify-center'>
+              <div className="w-48 h-48 md:w-56 md:h-56 flex justify-center">
+                <Image src={executive.image} className="w-full h-full bg-gray-300 rounded-lg" width={300} height={300} />
+              </div>
             </div>
-           </div>
             <div className="flex-1 text-center md:text-left">
               <h3 className="text-xl md:text-2xl text-white font-semibold mb-1">{executive.name}</h3>
               <p className="text-purple-200 italic ">{executive.role}</p>
               <p className="text-purple-200 italic mb-2">{executive.subbrole}</p>
-              <p className="text-gray-300 leading-relaxed md:text-center text-justify">{executive.description}</p>
+              <p className="text-gray-300 leading-relaxed  text-justify">{executive.description}</p>
             </div>
           </div>
         ))}
