@@ -47,7 +47,7 @@ const TeamBoard = () => {
       </section>
 
       {/* Board of Advisors Section */}
-      <section>
+      {/* <section>
         <h2 className="text-3xl md:text-4xl text-white mb-8 font-light" data-aos="fade-in">Board of Advisors</h2>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
           {boardMembers.map((member, index) => (
@@ -60,7 +60,7 @@ const TeamBoard = () => {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };
