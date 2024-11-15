@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
+import WhatsAppButton from './WhatsappButton';
 
 const Navbar = ({ className }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -76,6 +77,7 @@ const Navbar = ({ className }) => {
                     </Link>
                 </nav>
             </div>
+            <WhatsAppButton/>
         </header>
     );
 };
