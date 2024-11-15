@@ -13,7 +13,8 @@ const EventsPage = () => {
     title: 'NextGen Entrepreneur Awards 2024',
     date: '2024-12-21T09:00:00',
     description: 'The FLY NextGen Awards 2024 is a premier platform dedicated to recognizing, inspiring and empowering young entrepreneurs to become the business leaders of tomorrow.',
-    image: '/mockup1.jpg'
+    image: '/mockup1.jpg',
+    slug: 'NextGen-Entrepreneur-Awards-2024',
   }];
 
   useEffect(() => {
@@ -76,7 +77,7 @@ const EventsPage = () => {
         {events.map((event, index) => (
           <div
             key={event.id}
-            className=" w-auto" 
+            className=" w-auto"
 
           >
             <div className="backdrop-blur-3xl bg-white/5 md:pt-10 md:pl-10 border border-white/20 flex">
@@ -122,7 +123,7 @@ const EventsPage = () => {
 
                 <div className="flex gap-3">
                   <Link
-                    href={`/register`}
+                    href={`/events/${event.slug}`}
                     className="p-2 bg-purple-100 text-purple-800 rounded-sm flex-1 text-center
                              hover:bg-purple-300 transition-colors duration-300"
                   >

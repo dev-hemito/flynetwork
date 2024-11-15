@@ -12,6 +12,7 @@ import {
     Sparkles
 } from 'lucide-react';
 import EventsPage from '@/components/Event';
+import TeamBoard from '@/components/Home/Team';
 
 const AboutUs = () => {
     const [displayText, setDisplayText] = useState('');
@@ -66,7 +67,7 @@ const AboutUs = () => {
 
     return (
         <>
-                    <AnimatedBackground />
+            <AnimatedBackground />
 
             <div className="relative min-h-[600px] w-full h-screen">
                 {/* Background Image */}
@@ -98,7 +99,7 @@ const AboutUs = () => {
 
                     {/* Animated Buttons */}
                     <div className={`flex flex-wrap gap-4 transition-opacity duration-500 ${showButtons ? 'opacity-100' : 'opacity-0'}`}>
-                        <Link href='/register' className="px-8 py-3 bg-purple-100 text-purple-900 rounded-md font-semibold hover:bg-purple-200 transition-colors duration-300">
+                        <Link href='/join-fly' className="px-8 py-3 bg-purple-100 text-purple-900 rounded-md font-semibold hover:bg-purple-200 transition-colors duration-300">
                             Join Us
                         </Link>
                         <Link href='/' className="px-8 py-3 border-2 border-purple-100 text-purple-100 rounded-md font-semibold hover:bg-purple-800 transition-colors duration-800">
@@ -195,7 +196,7 @@ const AboutUs = () => {
 
                     {/* CTA Button */}
                     <div className="text-center mt-12">
-                        <Link href='/register' className="bg-purple-100 text-purple-900 px-6 py-3 rounded-lg font-semibold hover:bg-mint-200 transition-colors duration-300 inline-flex items-center group">
+                        <Link href='/join-fly' className="bg-purple-100 text-purple-900 px-6 py-3 rounded-lg font-semibold hover:bg-mint-200 transition-colors duration-300 inline-flex items-center group">
                             Become a member now
                             <svg
                                 className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300"
@@ -213,6 +214,9 @@ const AboutUs = () => {
                         </Link>
                     </div>
                 </div>
+            </div>
+            <div className="mx-auto max-w-7xl">
+            <TeamBoard />
             </div>
             {/* <EventsPage/> */}
         </>
