@@ -14,7 +14,7 @@ const TeamBoard = () => {
 
   const boardMembers = [
     { name: 'Dr. Thomas George K', role: 'Director at Lead College', image: '/members/Image.jpg' },
-    { name: 'Mr. Renjith Raj', role: 'Managing Partner at Paddle Consultants', image: '/members/renjith.jpg' },
+    { name: 'Mr. Renjith Raj', role: 'Founder - Paddle Consultants', image: '/members/renjith.jpg' },
     { name: 'Mr. Mathew Joseph', role: 'Founder - FreshToHome', image: '/members/Image.jpg' },
     { name: 'Mr. Jobin S Kottaram', role: 'Founder - Absolute IAS Academy', image: '/members/Image.jpg' },
     { name: 'Mr. Prasobh P', role: 'CEO Hemito Digital', image: '/members/Image.jpg' },
