@@ -19,8 +19,9 @@ const ContactPage = () => {
             icon: FaMapMarkerAlt,
             title: 'Visit Us',
             content: [
-                'XXI/152, Cochin University Post, Kalamassery, Kochi - 682022',
-                '17 Salt Hill Avenue, Post code -SL1 3XP Slough, United Kingdom'
+                `2/306, G2, 6th Floor, Technoplaza,
+        Nr.Sarovaram BTH, Kannadikadu,
+        Maradu PO, Cochin 682304`
             ]
         },
         {

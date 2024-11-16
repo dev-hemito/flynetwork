@@ -7,7 +7,7 @@ import SuccessMessage from '@/components/register/SuccessMessage';
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
-import { FaCalendar, FaCalendarAlt, FaClock, FaMapMarkedAlt } from 'react-icons/fa';
+import { FaCalendar, FaCalendarAlt, FaClock, FaFileDownload, FaMapMarkedAlt } from 'react-icons/fa';
 
 export default function Home() {
     const [showRegistration, setShowRegistration] = useState(false);
@@ -212,7 +212,8 @@ export default function Home() {
                 </div>
                 <div className='mt-5 md:w-1/2'>
                     <h3 className="text-3xl font-bold mb-6" >About The Event</h3>
-                    <p className="text-gray-300 text-justify">{eventData.description}</p>
+                    <p className="text-gray-300 text-justify mb-3">{eventData.description}</p>
+                    <a href="/brochure-NextGen.pdf" className='bg-purple-200 p-2 rounded-lg text-sm text-black px-5 flex gap-3 items-center w-fit' download> View Brochure <FaFileDownload className='text-purple-600'/></a>
                 </div>
             </div>
 
