@@ -2,10 +2,7 @@
 import AnimatedBackground from '@/components/AnimatedBackground'
 import EventsPage from '@/components/Event'
 import HeroSection from '@/components/Home/Hero'
-import MissionStatement from '@/components/Home/Mission'
-import TeamBoard from '@/components/Home/Team'
-import TestimonialSection from '@/components/Home/Testimonial'
-import WhyJoinSection from '@/components/Home/WhyJoinFly'
+import ValuesofFly from '@/components/Home/ValuesofFly'
 import React from 'react'
 
 const page = () => {
@@ -20,11 +17,8 @@ const page = () => {
         btn1Link="/join-fly"
         btn2="Learn More"
         btn2Link="/" />
-      <WhyJoinSection />
-      <MissionStatement />
-      <TeamBoard />
+        <ValuesofFly/>
       <EventsPage />
-      {/* <TestimonialSection/> */}
     </div>
   )
 }
