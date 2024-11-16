@@ -1,13 +1,13 @@
 'use client'
 import Image from 'next/image';
 import Link from 'next/link';
-import { 
-  FaFacebook, 
-  FaInstagram, 
+import {
+  FaFacebook,
+  FaInstagram,
   FaLinkedin,
-  FaMapMarkerAlt, 
-  FaPhone, 
-  FaEnvelope 
+  FaMapMarkerAlt,
+  FaPhone,
+  FaEnvelope
 } from 'react-icons/fa';
 
 const Footer = () => {
@@ -21,8 +21,11 @@ const Footer = () => {
     {
       icon: FaMapMarkerAlt,
       content: [
-        'XXI/152, Cochin University Post, Kalamassery, Kochi - 682022',
-        '17 Salt Hill Avenue, Post code -SL1 3XP Slough, United Kingdom'
+        // 'XXI/152, Cochin University Post, Kalamassery, Kochi - 682022',
+        // '17 Salt Hill Avenue, Post code -SL1 3XP Slough, United Kingdom'
+        `2/306, G2, 6th Floor, Technoplaza,
+        Nr.Sarovaram BTH, Kannadikadu,
+        Maradu PO, Cochin 682304`,
       ],
       type: 'address'
     },
@@ -45,17 +48,17 @@ const Footer = () => {
           {/* Company Info Section */}
           <div className="space-y-8">
             <Link href="/" className="inline-block">
-              <Image 
-                src="/logo2.png" 
-                width={1000} 
-                height={100} 
+              <Image
+                src="/logo2.png"
+                width={1000}
+                height={100}
                 alt="Fly Network Logo"
                 className="w-auto md:h-32 object-cover transform hover:scale-105 transition-transform duration-300"
               />
             </Link>
-            
+
             <p className="text-gray-300 text-sm leading-relaxed max-w-md">
-              Connecting businesses with innovative networking solutions. 
+              Connecting businesses with innovative networking solutions.
               Your trusted partner in digital transformation and technological excellence.
             </p>
 
@@ -83,8 +86,8 @@ const Footer = () => {
                   <info.icon className="text-purple-300 mt-1 flex-shrink-0 w-5 h-5 group-hover:text-white transition-colors duration-300" />
                   <div className="text-gray-300 text-sm group-hover:text-white transition-colors duration-300">
                     {info.content.map((item, idx) => (
-                      <p 
-                        key={idx} 
+                      <p
+                        key={idx}
                         className="hover:text-purple-300 transition-colors duration-300 mb-2"
                       >
                         {item}
@@ -104,14 +107,14 @@ const Footer = () => {
               © {new Date().getFullYear()} Fly Network. All rights reserved.
             </p>
             <div className="flex gap-8">
-              <Link 
-                href="/privacy-policy" 
+              <Link
+                href="/privacy-policy"
                 className="text-gray-300 hover:text-white text-sm transition-colors duration-300"
               >
                 Privacy Policy
               </Link>
-              <Link 
-                href="/terms-and-conditions" 
+              <Link
+                href="/terms-and-conditions"
                 className="text-gray-300 hover:text-white text-sm transition-colors duration-300"
               >
                 Terms & Conditions

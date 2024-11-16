@@ -4,6 +4,7 @@ import "./globals.css";
 import { Montserrat } from 'next/font/google';
 import Footer from "@/components/Footer";
 import ClientComponent from "./ClientComponent";
+import WhatsAppButton from "@/components/WhatsappButton";
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -45,6 +46,7 @@ export default function RootLayout({ children }) {
       <ClientComponent />
       <body className={`${montserrat.variable} montserrat-font  `}>
         <Navbar />
+       
         {children}
         <Footer/>
       </body>
