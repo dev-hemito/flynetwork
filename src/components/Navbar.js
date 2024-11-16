@@ -73,7 +73,7 @@ const Navbar = ({ className }) => {
                             </li>
                         ))}
                     </ul>
-                    <Link href='/join-fly' className="px-4 py-2 font-bold mt-10 md:mt-0 text-purple-800 hover:text-white  bg-purple-100 rounded-lg hover:bg-purple-600 transition-all duration-300 flex justify-center md:w-1/3" onClick={() => setIsMenuOpen(false)}>
+                    <Link href='/join-fly' className="md:px-4 px-2 py-2 font-bold mt-10 md:mt-0 text-purple-800 hover:text-white  bg-purple-100 rounded-lg hover:bg-purple-600 transition-all duration-300 flex justify-center min-w-32" onClick={() => setIsMenuOpen(false)}>
                         Join Us
                     </Link>
                 </nav>
