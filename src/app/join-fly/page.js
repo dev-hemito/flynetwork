@@ -1,13 +1,83 @@
 'use client'
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Check, Loader2 } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Check, Loader2, Home, RefreshCw, X } from 'lucide-react';
 import AnimatedBackground from '@/components/AnimatedBackground';
+
+const PaymentStatusView = ({ status, membershipId, onRetry, onHome }) => {
+  return (
+    <div className="flex flex-col items-center justify-center space-y-6 p-8 text-white">
+      {status.type === 'info' && (
+        <div className="text-center space-y-4">
+          <div className="flex justify-center">
+            <Loader2 className="w-12 h-12 animate-spin text-indigo-500" />
+          </div>
+          <h3 className="text-2xl font-semibold">Processing Payment</h3>
+          <p className="text-gray-300">{status.message}</p>
+        </div>
+      )}
+
+      {status.type === 'success' && (
+        <div className="text-center space-y-4">
+          <div className="flex justify-center">
+            <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+              <Check className="w-8 h-8 text-white" />
+            </div>
+          </div>
+          <h3 className="text-2xl font-semibold text-green-500">Payment Successful!</h3>
+          <p className="text-gray-300">{status.message}</p>
+          {membershipId && (
+            <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4 mt-4">
+              <h4 className="text-lg font-semibold text-green-500">Membership ID</h4>
+              <p className="text-green-400">{membershipId}</p>
+            </div>
+          )}
+          <button
+            onClick={onHome}
+            className="flex items-center px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
+          >
+            <Home className="w-5 h-5 mr-2" />
+            Go to Home
+          </button>
+        </div>
+      )}
+
+      {status.type === 'error' && (
+        <div className="text-center space-y-4">
+          <div className="flex justify-center">
+            <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
+              <X className="w-8 h-8 text-white" />
+            </div>
+          </div>
+          <h3 className="text-2xl font-semibold text-red-500">Payment Failed</h3>
+          <p className="text-gray-300">{status.message}</p>
+          <div className="flex space-x-4 justify-center">
+            <button
+              onClick={onRetry}
+              className="flex items-center px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
+            >
+              <RefreshCw className="w-5 h-5 mr-2" />
+              Retry Payment
+            </button>
+            <button
+              onClick={onHome}
+              className="flex items-center px-6 py-3 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
+            >
+              <Home className="w-5 h-5 mr-2" />
+              Go to Home
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
 
 const ApplicationForm = () => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState({ type: '', message: '' });
   const [membershipId, setMembershipId] = useState('');
+  const [showPaymentView, setShowPaymentView] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     dateOfBirth: '',
@@ -74,6 +144,7 @@ const ApplicationForm = () => {
   const handlePayment = async () => {
     try {
       setLoading(true);
+      setShowPaymentView(true);
       const res = await initializeRazorpay();
 
       if (!res) {
@@ -134,16 +205,7 @@ const ApplicationForm = () => {
             });
           }
         },
-        prefill: {
-          name: formData.fullName,
-          email: formData.email,
-          contact: formData.phone,
-        },
-        theme: {
-          color: "#4F46E5",
-        },
       };
-
       const paymentObject = new window.Razorpay(options);
       paymentObject.open();
     } catch (error) {
@@ -155,20 +217,27 @@ const ApplicationForm = () => {
       setLoading(false);
     }
   };
+  const handleRetryPayment = () => {
+    setShowPaymentView(false);
+    setStatus({ type: '', message: '' });
+    setLoading(false);
+  };
 
+  const handleGoHome = () => {
+    window.location.href = '/';
+  };
   const StatusMessage = () => {
     if (!status.message) return null;
 
     return (
-      <div className={`mb-6 p-4 rounded-lg border ${
-        status.type === 'success' ? 'bg-green-50 border-green-200 text-green-800' :
+      <div className={`mb-6 p-4 rounded-lg border ${status.type === 'success' ? 'bg-green-50 border-green-200 text-green-800' :
         status.type === 'error' ? 'bg-red-50 border-red-200 text-red-800' :
-        'bg-blue-50 border-blue-200 text-blue-800'
-      }`}>
+          'bg-blue-50 border-blue-200 text-blue-800'
+        }`}>
         <h3 className="font-medium mb-1">
           {status.type === 'success' ? 'Success!' :
-           status.type === 'error' ? 'Error' :
-           'Processing'}
+            status.type === 'error' ? 'Error' :
+              'Processing'}
         </h3>
         <div className="flex items-center gap-2">
           {loading && <Loader2 className="w-4 h-4 animate-spin" />}
@@ -187,11 +256,10 @@ const ApplicationForm = () => {
     <div className="flex items-center justify-center mb-8">
       {[1, 2, 3].map((num) => (
         <div key={num} className="flex items-center">
-          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
-            step === num ? 'bg-indigo-600 text-white' :
+          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step === num ? 'bg-indigo-600 text-white' :
             step > num ? 'bg-green-500 text-white' :
-            'bg-gray-200 text-gray-400'
-          }`}>
+              'bg-gray-200 text-gray-400'
+            }`}>
             {step > num ? <Check className="w-5 h-5" /> : num}
           </div>
           {num < 3 && (
@@ -392,71 +460,79 @@ const ApplicationForm = () => {
   };
 
   return (
-    <div className="min-h-screen  py-24 px-4 sm:px-6 lg:px-8">
-
-      <AnimatedBackground/>
+    <div className="min-h-screen py-24 px-4 sm:px-6 lg:px-8">
+      <AnimatedBackground />
       <div className="max-w-3xl mx-auto bg-black/30 rounded-xl shadow-lg p-8">
         <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-100">
+          <h2 className="text-3xl font-bold text-gray-100">
             FLY Application Form
           </h2>
           <p className="mt-2 text-gray-400">Forward Looking Youth Membership Application</p>
         </div>
 
-        <StatusMessage />
-        <StepIndicator />
+        {showPaymentView ? (
+          <PaymentStatusView
+            status={status}
+            membershipId={membershipId}
+            onRetry={handleRetryPayment}
+            onHome={handleGoHome}
+          />
+        ) : (
+          <>
+            <StepIndicator />
+            <div className="mt-8">
+              {step === 1 && renderPersonalDetails()}
+              {step === 2 && renderBusinessDetails()}
+              {step === 3 && renderInterviewQuestions()}
+            </div>
 
-        <div className="mt-8">
-          {step === 1 && renderPersonalDetails()}
-          {step === 2 && renderBusinessDetails()}
-          {step === 3 && renderInterviewQuestions()}
-        </div>
-
-        <div className="mt-8 flex justify-between">
-          {step > 1 && (
-            <button
-              onClick={() => setStep(step - 1)}
-              className="flex items-center px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
-              disabled={loading}
-            >
-              <ChevronLeft className="w-5 h-5 mr-2" />
-              Previous
-            </button>
-          )}
-
-          {step < 3 ? (
-            <button
-              onClick={() => setStep(step + 1)}
-              className={`flex items-center px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors ml-auto ${
-                !isFormValid() || loading ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-              disabled={!isFormValid() || loading}
-            >
-              Next
-              <ChevronRight className="w-5 h-5 ml-2" />
-            </button>
-          ) : (
-            <button
-              onClick={handlePayment}
-              className={`flex items-center px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors ml-auto ${
-                !isFormValid() || loading ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-              disabled={!isFormValid() || loading}
-            >
-              {loading ? (
-                <>
-                  <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                  Processing...
-                </>
-              ) : (
-                <>
-                  Pay ₹35,000
-                  <Check className="w-5 h-5 ml-2" />
-                </>
+            <div className="mt-8 flex justify-between">
+              {step > 1 && (
+                <button
+                  onClick={() => setStep(step - 1)}
+                  className="flex items-center px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+                  disabled={loading}
+                >
+                  <ChevronLeft className="w-5 h-5 mr-2" />
+                  Previous
+                </button>
               )}
-            </button>
-          )}
-        </div>
+
+              {step < 3 ? (
+                <button
+                  onClick={() => setStep(step + 1)}
+                  className={`flex items-center px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors ml-auto ${
+                    !isFormValid() || loading ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
+                  disabled={!isFormValid() || loading}
+                >
+                  Next
+                  <ChevronRight className="w-5 h-5 ml-2" />
+                </button>
+              ) : (
+                <button
+                  onClick={handlePayment}
+                  className={`flex items-center px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors ml-auto ${
+                    !isFormValid() || loading ? 'opacity-50 cursor-not-allowed' : ''
+                  }`}
+                  disabled={!isFormValid() || loading}
+                >
+                  {loading ? (
+                    <>
+                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      Pay ₹35,000
+                      <Check className="w-5 h-5 ml-2" />
+                    </>
+                  )}
+                </button>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
