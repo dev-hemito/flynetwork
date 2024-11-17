@@ -1,142 +1,178 @@
 'use client'
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight, Check, Loader2, Home, RefreshCw, X } from 'lucide-react';
-import AnimatedBackground from '@/components/AnimatedBackground';
+import { ChevronLeft, ChevronRight, Check, Loader2 } from 'lucide-react';
 
-const PaymentStatusView = ({ status, membershipId, onRetry, onHome }) => {
-  return (
-    <div className="flex flex-col items-center justify-center space-y-6 p-8 text-white">
-      {status.type === 'info' && (
-        <div className="text-center space-y-4">
-          <div className="flex justify-center">
-            <Loader2 className="w-12 h-12 animate-spin text-indigo-500" />
-          </div>
-          <h3 className="text-2xl font-semibold">Processing Payment</h3>
-          <p className="text-gray-300">{status.message}</p>
-        </div>
-      )}
-
-      {status.type === 'success' && (
-        <div className="text-center space-y-4">
-          <div className="flex justify-center">
-            <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
-              <Check className="w-8 h-8 text-white" />
-            </div>
-          </div>
-          <h3 className="text-2xl font-semibold text-green-500">Payment Successful!</h3>
-          <p className="text-gray-300">{status.message}</p>
-          {membershipId && (
-            <div className="bg-green-500/10 border border-green-500/20 rounded-lg p-4 mt-4">
-              <h4 className="text-lg font-semibold text-green-500">Membership ID</h4>
-              <p className="text-green-400">{membershipId}</p>
-            </div>
-          )}
-          <button
-            onClick={onHome}
-            className="flex items-center px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
-          >
-            <Home className="w-5 h-5 mr-2" />
-            Go to Home
-          </button>
-        </div>
-      )}
-
-      {status.type === 'error' && (
-        <div className="text-center space-y-4">
-          <div className="flex justify-center">
-            <div className="w-12 h-12 bg-red-500 rounded-full flex items-center justify-center">
-              <X className="w-8 h-8 text-white" />
-            </div>
-          </div>
-          <h3 className="text-2xl font-semibold text-red-500">Payment Failed</h3>
-          <p className="text-gray-300">{status.message}</p>
-          <div className="flex space-x-4 justify-center">
-            <button
-              onClick={onRetry}
-              className="flex items-center px-6 py-3 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
-            >
-              <RefreshCw className="w-5 h-5 mr-2" />
-              Retry Payment
-            </button>
-            <button
-              onClick={onHome}
-              className="flex items-center px-6 py-3 bg-gray-600 text-white rounded-md hover:bg-gray-700 transition-colors"
-            >
-              <Home className="w-5 h-5 mr-2" />
-              Go to Home
-            </button>
-          </div>
-        </div>
-      )}
-    </div>
-  );
+const OCCUPATION_TYPES = {
+  STUDENT: 'student',
+  EMPLOYEE: 'employee',
+  BUSINESS: 'business'
 };
 
-const ApplicationForm = () => {
+const HEAR_ABOUT_OPTIONS = [
+  'Social Media',
+  'Friends/Family',
+  'Google Ads',
+  'Website',
+  'Other'
+];
+
+const validateEmail = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!email) return 'Email is required';
+  if (!emailRegex.test(email)) return 'Invalid email format';
+  return '';
+};
+
+const validatePhone = (phone) => {
+  const phoneRegex = /^[6-9]\d{9}$/;
+  if (!phone) return 'Phone number is required';
+  if (!phoneRegex.test(phone)) return 'Invalid Indian phone number';
+  return '';
+};
+
+const validateAge = (dateOfBirth) => {
+  if (!dateOfBirth) return 'Date of birth is required';
+  const age = new Date().getFullYear() - new Date(dateOfBirth).getFullYear();
+  if (age < 18) return 'You must be at least 18 years old';
+  if (age > 25) return 'Age must be 25 or below';
+  return '';
+};
+
+export default function ApplicationForm() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
   const [status, setStatus] = useState({ type: '', message: '' });
-  const [membershipId, setMembershipId] = useState('');
+  const [membershipId, setMembershipId] = useState(null);
+
   const [showPaymentView, setShowPaymentView] = useState(false);
+
+
   const [formData, setFormData] = useState({
     fullName: '',
-    dateOfBirth: '',
     email: '',
     phone: '',
-    altPhone: '',
-    address: '',
+    dateOfBirth: '',
     education: '',
     occupation: '',
+    address: '',
     businessName: '',
-    position: '',
-    businessDescription: '',
-    productsServices: '',
-    isMemberOther: 'no',
-    otherGroupName: '',
-    hasPreferredChapter: 'no',
-    preferredChapter: '',
-  });
-
-  const [interviewData, setInterviewData] = useState({
     hearAbout: '',
-    referrals: '',
-    whyApply: '',
-    strengths: '',
-    expectations: '',
-    enjoyment: '',
-    leadership: 'no',
-    attendanceAgreement: 'no',
-    attendanceUnderstanding: '',
-    substituteArrangement: 'no',
-    feeAgreement: 'no',
-    trainingCommitment: 'no',
-    questions: '',
-    additionalInfo: '',
+    position: '',
+
   });
 
-  const handleFormChange = (e) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: value
     }));
+    if (errors[name]) {
+      setErrors(prev => ({ ...prev, [name]: '' }));
+    }
   };
 
-  const handleInterviewChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setInterviewData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
+  const validateStep = async (currentStep) => {
+    const newErrors = {};
+
+    if (currentStep === 1) {
+      if (!formData.fullName) newErrors.fullName = 'Name is required';
+      const emailError = validateEmail(formData.email);
+      const phoneError = validatePhone(formData.phone);
+      const ageError = validateAge(formData.dateOfBirth);
+
+      if (emailError) newErrors.email = emailError;
+      if (phoneError) newErrors.phone = phoneError;
+      if (ageError) newErrors.dateOfBirth = ageError;
+    }
+
+    if (currentStep === 2) {
+      if (!formData.education) newErrors.education = 'Education is required';
+      if (!formData.occupation) newErrors.occupation = 'Please select an occupation';
+      if (!formData.address) newErrors.address = 'Address is required';
+
+      if (formData.occupation === OCCUPATION_TYPES.BUSINESS) {
+        if (!formData.businessName) newErrors.businessName = 'Business name is required';
+        if (!formData.position) newErrors.businessName = 'Business role is required';
+
+      }
+    }
+
+    if (currentStep === 3) {
+      if (!formData.hearAbout) newErrors.hearAbout = 'Please select how you heard about us';
+      if (formData.hearAbout === 'Other' && !formData.hearAboutOther) {
+        newErrors.hearAboutOther = 'Please specify how you heard about us';
+      }
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+  const handleNext = async () => {
+    try {
+      setLoading(true);
+      setErrors({}); // Clear previous errors
+
+      if (step === 1) {
+        // First validate the current step
+        const isStepValid = await validateStep(1);
+        if (!isStepValid) {
+          setLoading(false);
+          return;
+        }
+
+        // Then check for existing email/phone
+        const response = await fetch('/api/validate-registration', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: formData.email,
+            phone: formData.phone
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          setErrors(prev => ({
+            ...prev,
+            registration: data.error
+          }));
+          setLoading(false);
+          return;
+        }
+
+        // If everything is valid, proceed to next step
+        setStep(prev => prev + 1);
+      } else {
+        // For other steps, just validate and proceed
+        const isValid = await validateStep(step);
+        if (isValid) {
+          setStep(prev => prev + 1);
+        }
+      }
+    } catch (error) {
+      console.error('Validation error:', error);
+      setErrors(prev => ({
+        ...prev,
+        registration: 'An error occurred during validation. Please try again.'
+      }));
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const initializeRazorpay = async () => {
-    setStatus({ type: 'info', message: 'Initializing payment gateway...' });
+  const initializeRazorpay = () => {
     return new Promise((resolve) => {
       const script = document.createElement('script');
       script.src = 'https://checkout.razorpay.com/v1/checkout.js';
+      script.async = true;
       script.onload = () => resolve(true);
-      script.onerror = () => resolve(false);
+      script.onerror = () => {
+        script.remove();
+        resolve(false);
+      };
       document.body.appendChild(script);
     });
   };
@@ -144,38 +180,41 @@ const ApplicationForm = () => {
   const handlePayment = async () => {
     try {
       setLoading(true);
-      setShowPaymentView(true);
-      const res = await initializeRazorpay();
+      setStatus({ type: 'processing', message: 'Initializing registeration process...' });
 
-      if (!res) {
-        setStatus({ type: 'error', message: 'Failed to load payment gateway. Please try again.' });
-        return;
+      const razorpayLoaded = await initializeRazorpay();
+      if (!razorpayLoaded) {
+        throw new Error('Razorpay SDK failed to load');
       }
 
-      setStatus({ type: 'info', message: 'Creating payment order...' });
-      const response = await fetch('/api/razorpay', {
+      const orderResponse = await fetch('/api/razorpay', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: 3500000 }),
+        body: JSON.stringify({ amount: 3500000 }), // Amount in paise
       });
 
-      const order = await response.json();
-
-      if (response.status !== 200) {
-        throw new Error(order.error || 'Failed to create order');
+      if (!orderResponse.ok) {
+        throw new Error('Failed to create order');
       }
+      setLoading(true);
+      setStatus({ type: 'processing', message: 'Creating the order' });
+
+
+      const orderData = await orderResponse.json();
 
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: order.amount,
-        currency: order.currency,
+        amount: orderData.amount,
+        currency: orderData.currency,
         name: "FLY Membership",
         description: "FLY Membership Registration Fee",
-        order_id: order.id,
+        order_id: orderData.id,
         handler: async function (response) {
           try {
-            setStatus({ type: 'info', message: 'Verifying payment...' });
-            const verificationResponse = await fetch('/api/verify-payment', {
+            setLoading(true);
+            setStatus({ type: 'processing', message: 'Verifying payment and generating Membership ID. Please Wait.' });
+
+            const verifyResponse = await fetch('/api/verify-payment', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({
@@ -183,20 +222,20 @@ const ApplicationForm = () => {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_signature: response.razorpay_signature,
                 formData,
-                interviewData,
               }),
             });
 
-            const data = await verificationResponse.json();
+            const verifyData = await verifyResponse.json();
 
-            if (data.success) {
-              setMembershipId(data.membershipId);
+            if (verifyData.success) {
+              setMembershipId(verifyData.membershipId);
               setStatus({
                 type: 'success',
-                message: 'Registration successful! Welcome to FLY family.'
+                message: `Registration successful! Your membership ID is ${verifyData.membershipId}`
               });
+              // You might want to redirect to a success page here
             } else {
-              throw new Error('Payment verification failed');
+              throw new Error(verifyData.error || 'Payment verification failed');
             }
           } catch (error) {
             setStatus({
@@ -205,337 +244,308 @@ const ApplicationForm = () => {
             });
           }
         },
+        prefill: {
+          name: formData.fullName,
+          email: formData.email,
+          contact: formData.phone,
+        },
+        theme: {
+          color: '#410c66',
+        },
       };
+
       const paymentObject = new window.Razorpay(options);
       paymentObject.open();
     } catch (error) {
       setStatus({
         type: 'error',
-        message: 'Failed to process payment. Please try again.'
+        message: error.message || 'Payment initialization failed. Please try again.'
       });
     } finally {
       setLoading(false);
     }
   };
-  const handleRetryPayment = () => {
-    setShowPaymentView(false);
-    setStatus({ type: '', message: '' });
-    setLoading(false);
-  };
 
-  const handleGoHome = () => {
-    window.location.href = '/';
-  };
-  const StatusMessage = () => {
-    if (!status.message) return null;
+  const handleSubmit = async () => {
+    const isValid = await validateStep(3);
+    if (!isValid) return;
 
-    return (
-      <div className={`mb-6 p-4 rounded-lg border ${status.type === 'success' ? 'bg-green-50 border-green-200 text-green-800' :
-        status.type === 'error' ? 'bg-red-50 border-red-200 text-red-800' :
-          'bg-blue-50 border-blue-200 text-blue-800'
-        }`}>
-        <h3 className="font-medium mb-1">
-          {status.type === 'success' ? 'Success!' :
-            status.type === 'error' ? 'Error' :
-              'Processing'}
-        </h3>
-        <div className="flex items-center gap-2">
-          {loading && <Loader2 className="w-4 h-4 animate-spin" />}
-          {status.message}
-          {membershipId && (
-            <div className="mt-2 font-semibold">
-              Your Membership ID: {membershipId}
-            </div>
-          )}
-        </div>
+    handlePayment();
+  };
+  const SuccessView = () => (
+    <div className="text-center space-y-6">
+      <div className="w-16 h-16 bg-green-500 rounded-full mx-auto flex items-center justify-center">
+        <Check className="w-8 h-8 text-white" />
       </div>
-    );
-  };
-
-  const StepIndicator = () => (
-    <div className="flex items-center justify-center mb-8">
-      {[1, 2, 3].map((num) => (
-        <div key={num} className="flex items-center">
-          <div className={`w-10 h-10 rounded-full flex items-center justify-center ${step === num ? 'bg-indigo-600 text-white' :
-            step > num ? 'bg-green-500 text-white' :
-              'bg-gray-200 text-gray-400'
-            }`}>
-            {step > num ? <Check className="w-5 h-5" /> : num}
-          </div>
-          {num < 3 && (
-            <div className={`w-20 h-1 ${step > num ? 'bg-green-500' : 'bg-gray-200'}`} />
-          )}
-        </div>
-      ))}
+      <h2 className="text-3xl font-bold text-white">Welcome to FLY!</h2>
+      <p className="text-gray-300">Your membership application has been approved.</p>
+      <div className="bg-black/30 rounded-lg p-6 mt-4">
+        <p className="text-gray-400">Your Membership ID</p>
+        <p className="text-2xl font-bold text-indigo-400">{membershipId}</p>
+      </div>
+      <p className="text-gray-400 mt-4">
+        Please save your membership ID for future reference. You will receive a confirmation email shortly.
+      </p>
     </div>
   );
-
-  const renderPersonalDetails = () => (
-    <div className="space-y-6 text-white">
-      <h3 className="text-xl font-semibold mb-6">Personal Details</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium mb-1">Full Name</label>
-          <input
-            type="text"
-            name="fullName"
-            value={formData.fullName}
-            onChange={handleFormChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 text-black focus:ring-indigo-500 focus:border-indigo-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-1">Date of Birth</label>
-          <input
-            type="date"
-            name="dateOfBirth"
-            value={formData.dateOfBirth}
-            onChange={handleFormChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 text-black focus:ring-indigo-500 focus:border-indigo-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-1">Email Address</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleFormChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 text-black focus:ring-indigo-500 focus:border-indigo-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-1">Phone Number</label>
-          <input
-            type="tel"
-            name="phone"
-            value={formData.phone}
-            onChange={handleFormChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 text-black focus:ring-indigo-500 focus:border-indigo-500"
-          />
-        </div>
-      </div>
-      <div>
-        <label className="block text-sm font-medium mb-1">Address</label>
-        <textarea
-          name="address"
-          value={formData.address}
-          onChange={handleFormChange}
-          rows={3}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 text-black focus:ring-indigo-500 focus:border-indigo-500"
-        />
+  const ProcessingOverlay = () => (
+    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="bg-black/80 p-8 rounded-xl text-center space-y-4">
+        <Loader2 className="w-12 h-12 animate-spin mx-auto text-indigo-500" />
+        <p className="text-white text-lg">{status.message}</p>
       </div>
     </div>
   );
-
-  const renderBusinessDetails = () => (
-    <div className="space-y-6 text-white">
-      <h3 className="text-xl font-semibold mb-6">Business Information</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
-          <label className="block text-sm font-medium mb-1">Business Name</label>
-          <input
-            type="text"
-            name="businessName"
-            value={formData.businessName}
-            onChange={handleFormChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 text-black focus:ring-indigo-500 focus:border-indigo-500"
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-1">Position/Title</label>
-          <input
-            type="text"
-            name="position"
-            value={formData.position}
-            onChange={handleFormChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 text-black focus:ring-indigo-500 focus:border-indigo-500"
-          />
-        </div>
-      </div>
-      <div>
-        <label className="block text-sm font-medium mb-1">Business Description</label>
-        <textarea
-          name="businessDescription"
-          value={formData.businessDescription}
-          onChange={handleFormChange}
-          rows={4}
-          className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 text-black focus:ring-indigo-500 focus:border-indigo-500"
-        />
-      </div>
-      <div className="space-y-4">
-        <label className="block text-sm font-medium">Member of Other Organizations?</label>
-        <div className="flex space-x-4">
-          <label className="flex items-center">
-            <input
-              type="radio"
-              name="isMemberOther"
-              value="yes"
-              checked={formData.isMemberOther === 'yes'}
-              onChange={handleFormChange}
-              className="mr-2"
-            />
-            <span>Yes</span>
-          </label>
-          <label className="flex items-center">
-            <input
-              type="radio"
-              name="isMemberOther"
-              value="no"
-              checked={formData.isMemberOther === 'no'}
-              onChange={handleFormChange}
-              className="mr-2"
-            />
-            <span>No</span>
-          </label>
-        </div>
-      </div>
-    </div>
-  );
-
-  const renderInterviewQuestions = () => (
-    <div className="space-y-6 text-white">
-      <h3 className="text-xl font-semibold mb-6">Interview Questions</h3>
-      <div className="space-y-6 text-white">
-        <div>
-          <label className="block text-sm font-medium mb-1">How did you hear about FLY?</label>
-          <textarea
-            name="hearAbout"
-            value={interviewData.hearAbout}
-            onChange={handleInterviewChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 text-black focus:ring-indigo-500 focus:border-indigo-500"
-            rows={2}
-          />
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-1">What strengths would you bring to FLY?</label>
-          <textarea
-            name="strengths"
-            value={interviewData.strengths}
-            onChange={handleInterviewChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 text-black focus:ring-indigo-500 focus:border-indigo-500"
-            rows={2}
-          />
-        </div>
-        <div className="space-y-4">
-          <label className="block text-sm font-medium">Open to Leadership Role?</label>
-          <div className="flex space-x-4">
-            <label className="flex items-center">
-              <input
-                type="radio"
-                name="leadership"
-                value="yes"
-                checked={interviewData.leadership === 'yes'}
-                onChange={handleInterviewChange}
-                className="mr-2"
-              />
-              <span>Yes</span>
-            </label>
-            <label className="flex items-center">
-              <input
-                type="radio"
-                name="leadership"
-                value="no"
-                checked={interviewData.leadership === 'no'}
-                onChange={handleInterviewChange}
-                className="mr-2"
-              />
-              <span>No</span>
-            </label>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
-  const isFormValid = () => {
-    if (step === 1) {
-      return formData.fullName && formData.email && formData.phone && formData.address;
-    } else if (step === 2) {
-      return formData.businessName && formData.position && formData.businessDescription;
-    } else if (step === 3) {
-      return interviewData.hearAbout && interviewData.strengths;
-    }
-    return false;
-  };
 
   return (
-    <div className="min-h-screen py-24 px-4 sm:px-6 lg:px-8">
-      <AnimatedBackground />
-      <div className="max-w-3xl mx-auto bg-black/30 rounded-xl shadow-lg p-8">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-100">
-            FLY Application Form
-          </h2>
-          <p className="mt-2 text-gray-400">Forward Looking Youth Membership Application</p>
-        </div>
-
-        {showPaymentView ? (
-          <PaymentStatusView
-            status={status}
-            membershipId={membershipId}
-            onRetry={handleRetryPayment}
-            onHome={handleGoHome}
-          />
+    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-black to-purple-900 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-2xl mx-auto bg-black/30 backdrop-blur-xl rounded-2xl p-8">
+        <script src='https://checkout.razorpay.com/v1/checkout.js'></script>
+        {status.type === 'success' && membershipId ? (
+          <SuccessView />
         ) : (
           <>
-            <StepIndicator />
-            <div className="mt-8">
-              {step === 1 && renderPersonalDetails()}
-              {step === 2 && renderBusinessDetails()}
-              {step === 3 && renderInterviewQuestions()}
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400">
+                Join FLY
+              </h2>
+              <p className="mt-2 text-gray-400">Forward Looking Youth Membership Application</p>
             </div>
 
+            {/* Progress Steps */}
+            <div className="flex justify-between mb-8">
+              {[1, 2, 3].map(num => (
+                <div key={num} className="flex items-center">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step >= num ? 'bg-indigo-600' : 'bg-gray-700'
+                    } transition-colors duration-200`}>
+                    {step > num ? (
+                      <Check className="w-4 h-4 text-white" />
+                    ) : (
+                      <span className="text-white">{num}</span>
+                    )}
+                  </div>
+                  {num < 3 && (
+                    <div className={`w-full h-0.5 ${step > num ? 'bg-indigo-600' : 'bg-gray-700'
+                      }`} />
+                  )}
+                </div>
+              ))}
+            </div>
+
+            {/* Form Steps */}
+            <div className="space-y-6">
+              {step === 1 && (
+                <div className="space-y-4">
+                  {errors.registration && (
+                    <div className="p-3 bg-red-500/10 border border-red-500/20 rounded text-red-400">
+                      {errors.registration}
+                    </div>
+                  )}
+
+                  <input
+                    type="text"
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleChange}
+                    placeholder="Full Name"
+                    className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
+                  />
+                  {errors.fullName && (
+                    <p className="text-sm text-red-400">{errors.fullName}</p>
+                  )}
+
+                  <input
+                    type="date"
+                    name="dateOfBirth"
+                    value={formData.dateOfBirth}
+                    onChange={handleChange}
+                    max={new Date().toISOString().split('T')[0]}
+                    className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white"
+                  />
+                  {errors.dateOfBirth && (
+                    <p className="text-sm text-red-400">{errors.dateOfBirth}</p>
+                  )}
+
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="Email Address"
+                    className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
+                  />
+                  {errors.email && (
+                    <p className="text-sm text-red-400">{errors.email}</p>
+                  )}
+
+                  <input
+                    type="tel"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    placeholder="Phone Number"
+                    maxLength={10}
+                    className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
+                  />
+                  {errors.phone && (
+                    <p className="text-sm text-red-400">{errors.phone}</p>
+                  )}
+                </div>
+              )}
+
+              {step === 2 && (
+                <div className="space-y-4">
+                  <input
+                    type="text"
+                    name="education"
+                    value={formData.education}
+                    onChange={handleChange}
+                    placeholder="Education"
+                    className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
+                  />
+                  {errors.education && (
+                    <p className="text-sm text-red-400">{errors.education}</p>
+                  )}
+                  <textarea
+                    name="address"
+                    value={formData.address}
+                    onChange={handleChange}
+                    placeholder="Address"
+                    rows={3}
+                    className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
+                  />
+                  {errors.address && (
+                    <p className="text-sm text-red-400">{errors.address}</p>
+                  )}
+
+                  <select
+                    name="occupation"
+                    value={formData.occupation}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white"
+                  >
+                    <option value="">Select Occupation</option>
+                    <option value={OCCUPATION_TYPES.STUDENT}>Student</option>
+                    <option value={OCCUPATION_TYPES.EMPLOYEE}>Employee</option>
+                    <option value={OCCUPATION_TYPES.BUSINESS}>Business Owner</option>
+                  </select>
+                  {errors.occupation && (
+                    <p className="text-sm text-red-400">{errors.occupation}</p>
+                  )}
+
+
+                  {formData.occupation === OCCUPATION_TYPES.BUSINESS && (
+                    <>
+                      <input
+                        type="text"
+                        name="businessName"
+                        value={formData.businessName}
+                        onChange={handleChange}
+                        placeholder="Business Name"
+                        className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
+                      />
+                      {errors.businessName && (
+                        <p className="text-sm text-red-400">{errors.businessName}</p>
+                      )}
+                      <input
+                        type="text"
+                        name="position"
+                        value={formData.position}
+                        onChange={handleChange}
+                        placeholder="Position"
+                        className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
+                      />
+                      {errors.position && (
+                        <p className="text-sm text-red-400">{errors.position}</p>
+                      )}
+
+
+                    </>
+                  )}
+                </div>
+              )}
+
+              {step === 3 && (
+                <div className="space-y-4">
+                  <select
+                    name="hearAbout"
+                    value={formData.hearAbout}
+                    onChange={handleChange}
+                    className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white"
+                  >
+                    <option value="">How did you hear about us?</option>
+                    {HEAR_ABOUT_OPTIONS.map(option => (
+                      <option key={option} value={option}>{option}</option>
+                    ))}
+                  </select>
+                  {errors.hearAbout && (
+                    <p className="text-sm text-red-400">{errors.hearAbout}</p>
+                  )}
+
+                  {formData.hearAbout === 'Other' && (
+                    <input
+                      type="text"
+                      name="hearAboutOther"
+                      value={formData.hearAboutOther}
+                      onChange={handleChange}
+                      placeholder="Please specify"
+                      className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
+                    />
+                  )}
+                  {errors.hearAboutOther && (
+                    <p className="text-sm text-red-400">{errors.hearAboutOther}</p>
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Navigation Buttons */}
             <div className="mt-8 flex justify-between">
               {step > 1 && (
                 <button
-                  onClick={() => setStep(step - 1)}
-                  className="flex items-center px-6 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors"
+                  onClick={() => setStep(prev => prev - 1)}
+                  className="flex items-center px-6 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700 transition-colors"
                   disabled={loading}
                 >
                   <ChevronLeft className="w-5 h-5 mr-2" />
-                  Previous
+                  Back
                 </button>
               )}
 
-              {step < 3 ? (
-                <button
-                  onClick={() => setStep(step + 1)}
-                  className={`flex items-center px-6 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors ml-auto ${
-                    !isFormValid() || loading ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
-                  disabled={!isFormValid() || loading}
-                >
-                  Next
-                  <ChevronRight className="w-5 h-5 ml-2" />
-                </button>
-              ) : (
-                <button
-                  onClick={handlePayment}
-                  className={`flex items-center px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors ml-auto ${
-                    !isFormValid() || loading ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
-                  disabled={!isFormValid() || loading}
-                >
-                  {loading ? (
-                    <>
-                      <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                      Processing...
-                    </>
-                  ) : (
-                    <>
-                      Pay ₹35,000
-                      <Check className="w-5 h-5 ml-2" />
-                    </>
-                  )}
-                </button>
-              )}
+              <button
+                onClick={step === 3 ? handleSubmit : handleNext}
+                disabled={loading}
+                className="flex items-center px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors ml-auto"
+              >
+                {loading ? (
+                  <>
+                    <Loader2 className="w-5 h-5 mr-2 animate-spin" />
+                    Processing...
+                  </>
+                ) : step === 3 ? (
+                  <>
+                    Pay ₹35,000
+                    <ChevronRight className="w-5 h-5 ml-2" />
+                  </>
+                ) : (
+                  <>
+                    Next
+                    <ChevronRight className="w-5 h-5 ml-2" />
+                  </>
+                )}
+              </button>
             </div>
+
           </>
+        )}
+        {(status.type === 'processing' && loading) && <ProcessingOverlay />}
+        {status.type === 'error' && (
+          <div className="mt-4 p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
+            <p className="text-red-400">{status.message}</p>
+          </div>
         )}
       </div>
     </div>
-  );
-};
 
-export default ApplicationForm;
+  );
+}

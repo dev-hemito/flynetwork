@@ -64,6 +64,11 @@ async function getSheet() {
   await doc.loadInfo();
   return doc.sheetsByIndex[0];
 }
+const getISTTimestamp = () => {
+  const options = { timeZone: 'Asia/Kolkata', hour12: false };
+  const date = new Date().toLocaleString('en-IN', options);
+  return date.replace(', ', 'T');  // Replace comma with T for ISO format (optional)
+};
 
 export async function POST(request) {
   try {
@@ -93,23 +98,29 @@ export async function POST(request) {
     const sheet = await getSheet();
     const membershipId = await generateMembershipId(sheet);
 
+
     // Save to Google Sheet
     await sheet.addRow({
-      timestamp: new Date().toISOString(),
+      timestamp: getISTTimestamp(),
       membershipId,
       fullName: formData.fullName,
       email: formData.email,
+      dateOfBirth:formData.dateOfBirth,
       phone: formData.phone,
+      altPhone:formData.altPhone,
+      education:formData.education,
+      occupation:formData.occupation,
       businessName: formData.businessName,
       position: formData.position,
-      hearAbout: interviewData.hearAbout,
+      isMemberOther: formData.isMemberOther,
+      otherGroupName: formData.otherGroupName,
+      hearAbout: formData.hearAbout,
       paymentId: razorpay_payment_id,
       orderId: razorpay_order_id,
       paymentStatus: 'Completed',
       amount: '35000',
-      ...formData,
-      ...interviewData
     });
+    console.log(formData)
 
     // Send confirmation email
     await sendConfirmationEmail(formData.email, formData.fullName, membershipId);
