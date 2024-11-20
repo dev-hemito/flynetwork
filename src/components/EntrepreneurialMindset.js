@@ -26,8 +26,8 @@ const BlogCard = () => {
                 onClick={() => setIsExpanded(true)}
                 className="max-w-7xl mx-auto border border-purple-600 rounded-lg shadow-sm hover:shadow-lg transition-all duration-300 cursor-pointer p-8 mt-12 mb-12"
             >
-                <div className="flex items-start justify-between mb-6">
-                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
+                <div className="md:flex items-start justify-between mb-6">
+                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white text-left">
                         The Entrepreneurial Mindset
                     </h2>
                     <div className="flex items-center space-x-4">
@@ -64,15 +64,15 @@ const BlogCard = () => {
             </button>
 
             <header className="mb-12">
-                <div className="flex items-start justify-between mb-6">
-                    <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+                <div className="md:flex items-start justify-between mb-6">
+                    <h1 className="text-4xl font-bold text-gray-900 dark:text-white text-left">
                         The Entrepreneurial Mindset
                     </h1>
-                    <div className="text-right">
+                    <div className="md:text-right text-left">
                         <p className="text-gray-600 dark:text-gray-400 font-medium">Dr. Arun Oommen</p>
                         <p className="text-sm text-gray-500 dark:text-gray-500">MBBS, MS, Mch, MRCS Ed (UK), MBA</p>
                         <p className="text-sm text-gray-500 dark:text-gray-500">Senior Consultant Neurosurgeon</p>
-                        <div className="flex items-center justify-end text-gray-500 dark:text-gray-400 text-sm mt-2">
+                        <div className="flex items-center md:justify-end justify-start text-gray-500 dark:text-gray-400 text-sm mt-2">
                             <Clock className="w-4 h-4 mr-1" />
                             <span>10 min read</span>
                         </div>
