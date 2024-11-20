@@ -1,6 +1,7 @@
 'use client'
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Check, Loader2 } from 'lucide-react';
+import AnimatedBackground from '@/components/AnimatedBackground';
 
 const OCCUPATION_TYPES = {
   STUDENT: 'student',
@@ -298,7 +299,8 @@ export default function ApplicationForm() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-black to-purple-900 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen pt-24 bg-gradient-to-br  py-12 px-4 sm:px-6 lg:px-8">
+      <AnimatedBackground/>
       <div className="max-w-2xl mx-auto bg-black/30 backdrop-blur-xl rounded-2xl p-8">
         <script src='https://checkout.razorpay.com/v1/checkout.js'></script>
         {status.type === 'success' && membershipId ? (

@@ -8,10 +8,20 @@ import 'aos/dist/aos.css';
 export default function ClientComponent({ children }) {
   // Initialize AOS in client component
   useEffect(() => {
-    AOS.init({
-      duration: 900,
-      once: true,
-    });
+    if (window.innerWidth > 500) {
+      AOS.init({
+        duration: 900,
+        once: true,
+      });
+    }
+    else
+    {
+      AOS.init({
+        duration: 300,
+        once: true,
+      });
+    }
+
   }, []);
 
   return <>{children}</>;
