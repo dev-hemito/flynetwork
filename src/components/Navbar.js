@@ -39,7 +39,7 @@ const Navbar = ({ className }) => {
 
     return (
         <header
-            className={`fixed w-full top-0 left-0 z-50 transition-all duration-300 ${isScrolled || isMenuOpen ? 'bg-[#1A0C2A]' : 'bg-transparent'
+            className={`fixed w-full top-0 left-0 z-50 transition-all duration-300 ${isScrolled || isMenuOpen ? 'bg-[#291043]' : 'bg-transparent'
                 } ${className}`}
 
         >

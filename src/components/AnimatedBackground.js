@@ -5,7 +5,7 @@ const AnimatedBackground = () => {
     <div className="fixed inset-0 overflow-hidden -z-10">
       {/* Large Circle */}
       <div 
-        className="absolute w-[500px] h-[500px] rounded-full bg-[#391180] placeholder opacity-25 blur-[100px]"
+        className="absolute w-[500px] h-[500px] rounded-full bg-[#561fb4] placeholder opacity-25 blur-[100px]"
         style={{
           animation: 'moveCircleLarge 25s infinite linear',
           transform: 'translate(-50%, -50%)'
@@ -14,7 +14,7 @@ const AnimatedBackground = () => {
       
       {/* Small Circle */}
       <div 
-        className="absolute w-[300px] h-[300px] rounded-full bg-[#391180] opacity-25 blur-[80px]"
+        className="absolute w-[300px] h-[300px] rounded-full bg-[#561fb4] opacity-25 blur-[80px]"
         style={{
           animation: 'moveCircleSmall 20s infinite linear',
           transform: 'translate(-50%, -50%)'

@@ -1,10 +1,10 @@
 'use client'
 import AnimatedBackground from '@/components/AnimatedBackground'
-import BlogCard from '@/components/EntrepreneurialMindset'
-import EntrepreneurialMindset from '@/components/EntrepreneurialMindset'
+
 import EventsPage from '@/components/Event'
 import HeroSection from '@/components/Home/Hero'
 import ValuesofFly from '@/components/Home/ValuesofFly'
+import BlogPost from '@/components/EntrepreneurialMindset'
 import QuoteCard from '@/components/QuoteCard'
 import React from 'react'
 
@@ -20,10 +20,9 @@ const page = () => {
         btn1Link="/join-fly"
         btn2="Learn More"
         btn2Link="/" />
-        <ValuesofFly/>
-      <BlogCard/>
-      <EventsPage />
-      <QuoteCard/>
+      <ValuesofFly />
+      <QuoteCard />
+      <BlogPost />
     </div>
   )
 }
