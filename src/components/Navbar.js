@@ -31,14 +31,15 @@ const Navbar = ({ className }) => {
         { href: '/', text: 'Home' },
         { href: '/about', text: 'About' },
         // { href: '/about#activity', text: 'Activity' },
+        { href: '/courses', text: 'Courses' },
         { href: '/events', text: 'Events' },
-        // { href: '/membership', text: 'Membership' },    
-        { href: '/contact', text: 'Contact Us' },
+        { href: '/membership', text: 'Membership' },    
+        { href: '/contact', text: 'Contact' },
     ];
 
     return (
         <header
-            className={`fixed w-full top-0 left-0 z-50 transition-all duration-300 ${isScrolled || isMenuOpen ? 'bg-[#1A0C2A]' : 'bg-transparent'
+            className={`fixed w-full top-0 left-0 z-50 transition-all duration-300 ${isScrolled || isMenuOpen ? 'bg-[#291043]' : 'bg-transparent'
                 } ${className}`}
 
         >
@@ -72,8 +73,8 @@ const Navbar = ({ className }) => {
                             </li>
                         ))}
                     </ul>
-                    <Link href='/register' className="px-4 py-2 mt-10 md:mt-0 text-white border border-white/20 rounded-lg hover:bg-white/10 transition-all duration-300 flex justify-center md:w-1/3" onClick={() => setIsMenuOpen(false)}>
-                        Register
+                    <Link href='/join-fly' className="md:px-4 px-2 py-2 font-bold mt-10 md:mt-0 text-purple-800 hover:text-white  bg-purple-100 rounded-lg hover:bg-purple-600 transition-all duration-300 flex justify-center min-w-32" onClick={() => setIsMenuOpen(false)}>
+                        Join Us
                     </Link>
                 </nav>
             </div>

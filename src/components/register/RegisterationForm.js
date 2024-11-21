@@ -45,7 +45,7 @@ export default function RegistrationForm({ onSuccess }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-40">
+    <div className="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-40">
       <div className="bg-gray-800 p-8 rounded-lg max-w-md w-full">
         <h2 className="text-2xl font-bold text-white mb-6">Register for NextGen Awards</h2>
 
