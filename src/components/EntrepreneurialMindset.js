@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { useState } from 'react';
 
 const BlogPost = () => {
@@ -7,6 +8,7 @@ const BlogPost = () => {
         {
             id: 1,
             title: "THE ENTREPRENEURIAL MINDSET",
+            image:'/members/arun.jpg',
             excerpt: "Many individuals aspire to establish their own businesses; however, they may lack the necessary entrepreneurial mindset to succeed. They often do not fully grasp the realities and implications of entrepreneurship.",
             author: "Dr Arun Oommen",
             credentials: "MBBS, MS (General Surgery), Mch (Neurosurgery), MRCS Ed (UK), MBA (Hospital Administration), D Litt(h), DSc(h), PhD(h), ENLS",
@@ -17,6 +19,7 @@ const BlogPost = () => {
         {
             id: 2,
             title: "THE ENTREPRENEURIAL MINDSET",
+            image:'/members/arun.jpg',
             excerpt: "Many individuals aspire to establish their own businesses; however, they may lack the necessary entrepreneurial mindset to succeed. They often do not fully grasp the realities and implications of entrepreneurship.",
             author: "Dr Arun Oommen",
             credentials: "MBBS, MS (General Surgery), Mch (Neurosurgery), MRCS Ed (UK), MBA (Hospital Administration), D Litt(h), DSc(h), PhD(h), ENLS",
@@ -27,6 +30,7 @@ const BlogPost = () => {
         {
             id: 3,
             title: "THE ENTREPRENEURIAL MINDSET",
+            image:'/members/arun.jpg',
             excerpt: "Many individuals aspire to establish their own businesses; however, they may lack the necessary entrepreneurial mindset to succeed. They often do not fully grasp the realities and implications of entrepreneurship.",
             author: "Dr Arun Oommen",
             credentials: "MBBS, MS (General Surgery), Mch (Neurosurgery), MRCS Ed (UK), MBA (Hospital Administration), D Litt(h), DSc(h), PhD(h), ENLS",
@@ -37,6 +41,7 @@ const BlogPost = () => {
         {
             id: 4,
             title: "THE ENTREPRENEURIAL MINDSET",
+            image:'/members/arun.jpg',
             excerpt: "Many individuals aspire to establish their own businesses; however, they may lack the necessary entrepreneurial mindset to succeed. They often do not fully grasp the realities and implications of entrepreneurship.",
             author: "Dr Arun Oommen",
             credentials: "MBBS, MS (General Surgery), Mch (Neurosurgery), MRCS Ed (UK), MBA (Hospital Administration), D Litt(h), DSc(h), PhD(h), ENLS",
@@ -62,9 +67,8 @@ const BlogPost = () => {
                             // Collapsed View
                             <div className="p-6">
                                 <div className="md:flex items-start gap-4">
-                                    <div className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center text-white text-xl font-bold">
-                                        {post.author.split(' ').map(n => n[0]).join('')}
-                                    </div>
+                                    <Image src={post.image} width={300} height={300} alt={post.author} className="w-16 h-16 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center object-cover text-white text-xl font-bold"/>
+                                   
                                     <div className="flex-1">
                                         <h2 className="text-xl font-bold text-white mb-2">{post.title}</h2>
                                         <p className="text-purple-200 text-sm mb-4 line-clamp-2">{post.excerpt}</p>
@@ -79,9 +83,8 @@ const BlogPost = () => {
                             // Expanded View
                             <div className="p-6">
                                 <div className="flex flex-col md:flex-row gap-6 mb-6">
-                                    <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center text-white text-3xl font-bold mx-auto md:mx-0">
-                                        {post.author.split(' ').map(n => n[0]).join('')}
-                                    </div>
+                                <Image src={post.image} width={300} height={300} alt={post.author}  className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 flex items-center justify-center text-white text-3xl font-bold mx-auto md:mx-0 object-cover" />
+                                     
                                     <div>
                                         <h1 className="text-2xl md:text-3xl font-bold text-white mb-4 text-center md:text-left">{post.title}</h1>
                                         <div className="text-purple-200">

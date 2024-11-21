@@ -44,7 +44,7 @@ const ValuesofFly = () => {
     ];
 
     return (
-        <section className="min-h-screen  py-16 px-4 relative overflow-hidden">
+        <section className="min-h-screen mt-12  py-16 px-4 relative overflow-hidden">
             {/* Background decoration */}
 
 
@@ -54,7 +54,7 @@ const ValuesofFly = () => {
                     <h1 className="text-4xl md:text-6xl font-bold mb-6 text-white tracking-tight">
                         Values of FLY
                     </h1>
-                    <p className="text-gray-300 max-w-2xl mx-auto text-lg leading-relaxed">
+                    <p className="text-gray-300 max-w-5xl mx-auto text-lg leading-relaxed">
                         FLY's mission is to cultivate a community of empowered, connected, and inspired young entrepreneurs who support each other on their journeys to success.
                         Our core values reflect our commitment to fostering meaningful relationships, shared growth, and impactful transformation.
                     </p>
