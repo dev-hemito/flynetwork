@@ -16,45 +16,14 @@ const BlogPost = () => {
             hospital: "VPS Lakeshore Hospital, Kochi",
             content: `Many individuals aspire to establish their own businesses; however, they may lack the necessary entrepreneurial mindset to succeed. They often do not fully grasp the realities and implications of entrepreneurship. Many are simply drawn to the perceived freedom associated with owning a business. While it is accurate that entrepreneurship can offer a sense of liberation, it can also be mentally, emotionally, and physically demanding...`
         },
-        {
-            id: 2,
-            title: "THE ENTREPRENEURIAL MINDSET",
-            image:'/members/arun.jpg',
-            excerpt: "Many individuals aspire to establish their own businesses; however, they may lack the necessary entrepreneurial mindset to succeed. They often do not fully grasp the realities and implications of entrepreneurship.",
-            author: "Dr Arun Oommen",
-            credentials: "MBBS, MS (General Surgery), Mch (Neurosurgery), MRCS Ed (UK), MBA (Hospital Administration), D Litt(h), DSc(h), PhD(h), ENLS",
-            role: "Senior Consultant Neurosurgeon",
-            hospital: "VPS Lakeshore Hospital, Kochi",
-            content: `Many individuals aspire to establish their own businesses; however, they may lack the necessary entrepreneurial mindset to succeed. They often do not fully grasp the realities and implications of entrepreneurship. Many are simply drawn to the perceived freedom associated with owning a business. While it is accurate that entrepreneurship can offer a sense of liberation, it can also be mentally, emotionally, and physically demanding...`
-        },
-        {
-            id: 3,
-            title: "THE ENTREPRENEURIAL MINDSET",
-            image:'/members/arun.jpg',
-            excerpt: "Many individuals aspire to establish their own businesses; however, they may lack the necessary entrepreneurial mindset to succeed. They often do not fully grasp the realities and implications of entrepreneurship.",
-            author: "Dr Arun Oommen",
-            credentials: "MBBS, MS (General Surgery), Mch (Neurosurgery), MRCS Ed (UK), MBA (Hospital Administration), D Litt(h), DSc(h), PhD(h), ENLS",
-            role: "Senior Consultant Neurosurgeon",
-            hospital: "VPS Lakeshore Hospital, Kochi",
-            content: `Many individuals aspire to establish their own businesses; however, they may lack the necessary entrepreneurial mindset to succeed. They often do not fully grasp the realities and implications of entrepreneurship. Many are simply drawn to the perceived freedom associated with owning a business. While it is accurate that entrepreneurship can offer a sense of liberation, it can also be mentally, emotionally, and physically demanding...`
-        },
-        {
-            id: 4,
-            title: "THE ENTREPRENEURIAL MINDSET",
-            image:'/members/arun.jpg',
-            excerpt: "Many individuals aspire to establish their own businesses; however, they may lack the necessary entrepreneurial mindset to succeed. They often do not fully grasp the realities and implications of entrepreneurship.",
-            author: "Dr Arun Oommen",
-            credentials: "MBBS, MS (General Surgery), Mch (Neurosurgery), MRCS Ed (UK), MBA (Hospital Administration), D Litt(h), DSc(h), PhD(h), ENLS",
-            role: "Senior Consultant Neurosurgeon",
-            hospital: "VPS Lakeshore Hospital, Kochi",
-            content: `Many individuals aspire to establish their own businesses; however, they may lack the necessary entrepreneurial mindset to succeed. They often do not fully grasp the realities and implications of entrepreneurship. Many are simply drawn to the perceived freedom associated with owning a business. While it is accurate that entrepreneurship can offer a sense of liberation, it can also be mentally, emotionally, and physically demanding...`
-        },
+
 
         // ... other posts with unique IDs 2, 3, 4
     ];
 
     return (
         <div className="p-4 max-w-7xl mx-auto text-left">
+            <h1 className='text-center text-5xl py-12'>Our Experts Talk</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {posts.map((post, index) => (
                     <div 
