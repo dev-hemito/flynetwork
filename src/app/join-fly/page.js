@@ -336,7 +336,7 @@ export default function ApplicationForm() {
 
             {/* Form Steps */}
             <div className="space-y-6">
-              {step === 1 && (
+            {step === 1 && (
                 <div className="space-y-4">
                   {errors.registration && (
                     <div className="p-3 bg-red-500/10 border border-red-500/20 rounded text-red-400">
@@ -344,124 +344,157 @@ export default function ApplicationForm() {
                     </div>
                   )}
 
-                  <input
-                    type="text"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    placeholder="Full Name"
-                    className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
-                  />
-                  {errors.fullName && (
-                    <p className="text-sm text-red-400">{errors.fullName}</p>
-                  )}
+                  <div>
+                    <label htmlFor="fullName" className="block text-sm text-gray-400 mb-1">Full Name</label>
+                    <input
+                      id="fullName"
+                      type="text"
+                      name="fullName"
+                      value={formData.fullName}
+                      onChange={handleChange}
+                      placeholder="Enter your full name"
+                      className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
+                    />
+                    {errors.fullName && (
+                      <p className="text-sm text-red-400 mt-1">{errors.fullName}</p>
+                    )}
+                  </div>
 
-                  <input
-                    type="date"
-                    name="dateOfBirth"
-                    value={formData.dateOfBirth}
-                    onChange={handleChange}
-                    max={new Date().toISOString().split('T')[0]}
-                    className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white"
-                  />
-                  {errors.dateOfBirth && (
-                    <p className="text-sm text-red-400">{errors.dateOfBirth}</p>
-                  )}
+                  <div>
+                    <label htmlFor="dateOfBirth" className="block text-sm text-gray-400 mb-1">Date of Birth</label>
+                    <input
+                      id="dateOfBirth"
+                      type="date"
+                      name="dateOfBirth"
+                      value={formData.dateOfBirth}
+                      onChange={handleChange}
+                      max={new Date().toISOString().split('T')[0]}
+                      className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white"
+                    />
+                    {errors.dateOfBirth && (
+                      <p className="text-sm text-red-400 mt-1">{errors.dateOfBirth}</p>
+                    )}
+                  </div>
 
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="Email Address"
-                    className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
-                  />
-                  {errors.email && (
-                    <p className="text-sm text-red-400">{errors.email}</p>
-                  )}
+                  <div>
+                    <label htmlFor="email" className="block text-sm text-gray-400 mb-1">Email Address</label>
+                    <input
+                      id="email"
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="Enter your email address"
+                      className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
+                    />
+                    {errors.email && (
+                      <p className="text-sm text-red-400 mt-1">{errors.email}</p>
+                    )}
+                  </div>
 
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    placeholder="Phone Number"
-                    maxLength={10}
-                    className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
-                  />
-                  {errors.phone && (
-                    <p className="text-sm text-red-400">{errors.phone}</p>
-                  )}
+                  <div>
+                    <label htmlFor="phone" className="block text-sm text-gray-400 mb-1">Phone Number</label>
+                    <input
+                      id="phone"
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="Enter 10-digit phone number"
+                      maxLength={10}
+                      className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
+                    />
+                    {errors.phone && (
+                      <p className="text-sm text-red-400 mt-1">{errors.phone}</p>
+                    )}
+                  </div>
                 </div>
               )}
-
               {step === 2 && (
                 <div className="space-y-4">
-                  <input
-                    type="text"
-                    name="education"
-                    value={formData.education}
-                    onChange={handleChange}
-                    placeholder="Education"
-                    className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
-                  />
-                  {errors.education && (
-                    <p className="text-sm text-red-400">{errors.education}</p>
-                  )}
-                  <textarea
-                    name="address"
-                    value={formData.address}
-                    onChange={handleChange}
-                    placeholder="Address"
-                    rows={3}
-                    className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
-                  />
-                  {errors.address && (
-                    <p className="text-sm text-red-400">{errors.address}</p>
-                  )}
+                  <div>
+                    <label htmlFor="education" className="block text-sm text-gray-400 mb-1">Education</label>
+                    <input
+                      id="education"
+                      type="text"
+                      name="education"
+                      value={formData.education}
+                      onChange={handleChange}
+                      placeholder="Enter your educational background"
+                      className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
+                    />
+                    {errors.education && (
+                      <p className="text-sm text-red-400 mt-1">{errors.education}</p>
+                    )}
+                  </div>
 
-                  <select
-                    name="occupation"
-                    value={formData.occupation}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white"
-                  >
-                    <option value="">Select Occupation</option>
-                    <option value={OCCUPATION_TYPES.STUDENT}>Student</option>
-                    <option value={OCCUPATION_TYPES.EMPLOYEE}>Employee</option>
-                    <option value={OCCUPATION_TYPES.BUSINESS}>Business Owner</option>
-                  </select>
-                  {errors.occupation && (
-                    <p className="text-sm text-red-400">{errors.occupation}</p>
-                  )}
+                  <div>
+                    <label htmlFor="address" className="block text-sm text-gray-400 mb-1">Address</label>
+                    <textarea
+                      id="address"
+                      name="address"
+                      value={formData.address}
+                      onChange={handleChange}
+                      placeholder="Enter your full address"
+                      rows={3}
+                      className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
+                    />
+                    {errors.address && (
+                      <p className="text-sm text-red-400 mt-1">{errors.address}</p>
+                    )}
+                  </div>
 
+                  <div>
+                    <label htmlFor="occupation" className="block text-sm text-gray-400 mb-1">Occupation</label>
+                    <select
+                      id="occupation"
+                      name="occupation"
+                      value={formData.occupation}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white"
+                    >
+                      <option value="">Select Occupation</option>
+                      <option value={OCCUPATION_TYPES.STUDENT}>Student</option>
+                      <option value={OCCUPATION_TYPES.EMPLOYEE}>Employee</option>
+                      <option value={OCCUPATION_TYPES.BUSINESS}>Business Owner</option>
+                    </select>
+                    {errors.occupation && (
+                      <p className="text-sm text-red-400 mt-1">{errors.occupation}</p>
+                    )}
+                  </div>
 
                   {formData.occupation === OCCUPATION_TYPES.BUSINESS && (
                     <>
-                      <input
-                        type="text"
-                        name="businessName"
-                        value={formData.businessName}
-                        onChange={handleChange}
-                        placeholder="Business Name"
-                        className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
-                      />
-                      {errors.businessName && (
-                        <p className="text-sm text-red-400">{errors.businessName}</p>
-                      )}
-                      <input
-                        type="text"
-                        name="position"
-                        value={formData.position}
-                        onChange={handleChange}
-                        placeholder="Position"
-                        className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
-                      />
-                      {errors.position && (
-                        <p className="text-sm text-red-400">{errors.position}</p>
-                      )}
-
-
+                      <div>
+                        <label htmlFor="businessName" className="block text-sm text-gray-400 mb-1">Business Name</label>
+                        <input
+                          id="businessName"
+                          type="text"
+                          name="businessName"
+                          value={formData.businessName}
+                          onChange={handleChange}
+                          placeholder="Enter your business name"
+                          className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
+                        />
+                        {errors.businessName && (
+                          <p className="text-sm text-red-400 mt-1">{errors.businessName}</p>
+                        )}
+                      </div>
+                      <div>
+                        <label htmlFor="position" className="block text-sm text-gray-400 mb-1">Position</label>
+                        <input
+                          id="position"
+                          type="text"
+                          name="position"
+                          value={formData.position}
+                          onChange={handleChange}
+                          placeholder="Enter your business role"
+                          className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
+                        />
+                        {errors.position && (
+                          <p className="text-sm text-red-400 mt-1">{errors.position}</p>
+                        )}
+                      </div>
                     </>
                   )}
                 </div>
@@ -469,33 +502,41 @@ export default function ApplicationForm() {
 
               {step === 3 && (
                 <div className="space-y-4">
-                  <select
-                    name="hearAbout"
-                    value={formData.hearAbout}
-                    onChange={handleChange}
-                    className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white"
-                  >
-                    <option value="">How did you hear about us?</option>
-                    {HEAR_ABOUT_OPTIONS.map(option => (
-                      <option key={option} value={option}>{option}</option>
-                    ))}
-                  </select>
-                  {errors.hearAbout && (
-                    <p className="text-sm text-red-400">{errors.hearAbout}</p>
-                  )}
+                  <div>
+                    <label htmlFor="hearAbout" className="block text-sm text-gray-400 mb-1">How did you hear about us?</label>
+                    <select
+                      id="hearAbout"
+                      name="hearAbout"
+                      value={formData.hearAbout}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white"
+                    >
+                      <option value="">Select an option</option>
+                      {HEAR_ABOUT_OPTIONS.map(option => (
+                        <option key={option} value={option}>{option}</option>
+                      ))}
+                    </select>
+                    {errors.hearAbout && (
+                      <p className="text-sm text-red-400 mt-1">{errors.hearAbout}</p>
+                    )}
+                  </div>
 
                   {formData.hearAbout === 'Other' && (
-                    <input
-                      type="text"
-                      name="hearAboutOther"
-                      value={formData.hearAboutOther}
-                      onChange={handleChange}
-                      placeholder="Please specify"
-                      className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
-                    />
-                  )}
-                  {errors.hearAboutOther && (
-                    <p className="text-sm text-red-400">{errors.hearAboutOther}</p>
+                    <div>
+                      <label htmlFor="hearAboutOther" className="block text-sm text-gray-400 mb-1">Please specify</label>
+                      <input
+                        id="hearAboutOther"
+                        type="text"
+                        name="hearAboutOther"
+                        value={formData.hearAboutOther}
+                        onChange={handleChange}
+                        placeholder="How did you hear about us?"
+                        className="w-full px-4 py-2 bg-black/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-indigo-500 text-white placeholder-gray-500"
+                      />
+                      {errors.hearAboutOther && (
+                        <p className="text-sm text-red-400 mt-1">{errors.hearAboutOther}</p>
+                      )}
+                    </div>
                   )}
                 </div>
               )}

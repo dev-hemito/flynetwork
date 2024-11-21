@@ -13,7 +13,7 @@ const EventsPage = () => {
     title: 'NextGen Entrepreneur Awards 2024',
     date: '2024-12-21T09:00:00',
     description: 'The FLY NextGen Awards 2024 is a premier platform dedicated to recognizing, inspiring and empowering young entrepreneurs to become the business leaders of tomorrow.',
-    image: '/mockup1.jpg',
+    image: '/evnt.jpg',
     slug: 'NextGen-Entrepreneur-Awards-2024',
   }];
 
@@ -124,8 +124,8 @@ const EventsPage = () => {
                 <div className="flex gap-3">
                   <Link
                     href={`/events/${event.slug}`}
-                    className="p-2 bg-purple-100 text-purple-800 rounded-sm flex-1 text-center
-                             hover:bg-purple-300 transition-colors duration-300"
+                    className="p-2 bg-purple-100 text-purple-800 rounded-sm flex-1 text-center font-bold
+                             hover:bg-purple-600 hover:text-white transition-colors duration-300"
                   >
                     Register Now
                   </Link>
@@ -133,7 +133,7 @@ const EventsPage = () => {
                 </div>
               </div>
 
-              <div className='border border-purple-600 hidden md:block relative bottom-5 right-2 '>
+              <div className='border border-yellow-200 hidden md:block relative bottom-5 right-2 '>
                 <Image
                   src={event.image}
                   width={300}

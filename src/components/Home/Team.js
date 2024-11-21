@@ -14,15 +14,15 @@ const TeamBoard = () => {
 
   const boardMembers = [
     { name: 'Mr. Renjith Raj', role: 'Founder - Paddle Consultants', image: '/members/renjith.jpg' },
-    { name: 'Mr. Subilal K', role: 'Automation Coach', image: '/members/subilal.jpg' },
-    { name: 'Dr. Ramesh K V', role: 'Public speaking coach', image: '/members/rameshs.jpg' },
+    { name: 'Mr. Rashid K A', role: 'Director - Ajmi Foods', image: '/members/rashid.jpg' },
     { name: 'Mr. Sunil Mathai', role: 'Founder - TradeTalks', image: '/members/akhil.jpg' },
     { name: 'Dr. Arun Oommen', role: 'Senior Consultant Neurosurgeon - VPS Lakeshore Hospital', image: '/members/arun.jpg' },
+    { name: 'Dr. Thomas George K', role: 'Director - LEAD College of Management', image: '/members/thomas.jpg' },
     { name: 'Mr. Shihabudheen P K', role: 'CEO & Co-Founder,Hash Future School', image: '/members/shihab.jpg' },
+    { name: 'Mr. Subilal K', role: 'Automation Coach', image: '/members/subilal.jpg' },
+    { name: 'Dr. Ramesh K V', role: 'Public speaking coach', image: '/members/rameshs.jpg' },
     { name: 'Mr. Prasobh P', role: 'CEO Hemito Digital', image: '/members/Image.jpg' },
     { name: 'Mr. Mujeeb Rahaman', role: 'Influencer ,Teacher My vlog', image: '/members/mujeeb.jpg' },
-    { name: 'Dr. Thomas George K', role: 'Director - LEAD College of Management', image: '/members/thomas.jpg' },
-    { name: 'Mr. Rashid K A', role: 'Director - Ajmi Foods', image: '/members/rashid.jpg' },
     { name: 'Mr. Prabeesh', role: 'COO Padle Group', image: '/members/prabeesh.jpg' },
     { name: 'Mr. Denny Tomy', role: 'Managing Partner - Loanitol', image: '/members/denny.jpg' },
 

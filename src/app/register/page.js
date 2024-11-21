@@ -150,7 +150,7 @@ export default function Home() {
                         </div>
                         <button
                             onClick={() => setShowRegistration(true)}
-                            className="w-full py-3 bg-purple-100 text-purple-900 rounded-md font-semibold"
+                            className="w-full py-3 bg-gradient-to-r from-yellow-200 to-amber-500  text-purple-900 rounded-md font-semibold"
                         >
                             Register Now
                         </button>
@@ -188,8 +188,8 @@ export default function Home() {
                 </div>
 
                 <div className="justify-center items-center hidden md:flex">
-                    <div className="border border-purple-900 h-2/3 relative flex justify-center items-center" data-aos="fade-down">
-                        <Image width={1000} height={1000} src="/mockup1.jpg" alt="Conference" className="h-full object-cover relative top-6 left-6"  />
+                    <div className="border border-yellow-300 h-3/3 w-auto relative flex justify-center items-center" data-aos="fade-down">
+                        <Image width={1000} height={1000} src="/evnt.jpg" alt="Conference" className="h-full object-cover relative top-6 left-6"  />
                     </div>
                 </div>
             </section>

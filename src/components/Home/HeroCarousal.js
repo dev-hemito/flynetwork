@@ -24,7 +24,7 @@ const HeroCarousel = () => {
       name: "Mr. Sami K Haridas",
       title: "Founder & CEO",
       imageUrl: "/members/sami.jpg", // Replace with actual image path
-      signature: "/founder-signature.png" // Replace with actual signature path
+      signature: "/sign.png" // Replace with actual signature path
     },
     {
       type: 'group',
