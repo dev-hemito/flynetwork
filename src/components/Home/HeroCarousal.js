@@ -20,7 +20,7 @@ const HeroCarousel = () => {
     },
     {
       type: 'founder',
-      message: "Our mission is to ignite the entrepreneurial spirit in young minds, providing them with the tools, network, and confidence to turn their dreams into reality.",
+      message: "I created FLY to be a launchpad for young entrepreneurs, who are ready to make their mark. Here, you will find mentorship that inspires and offers resources and connections that spark growth. My goal is simple, that is to help ambitious minds' ideas turn into reality and to build a community where success is shared and celebrated.",
       name: "Mr. Sami K Haridas",
       title: "Founder & CEO",
       imageUrl: "/members/sami.jpg", // Replace with actual image path
