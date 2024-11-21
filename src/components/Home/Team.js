@@ -8,7 +8,18 @@ const TeamBoard = () => {
       role: 'Startup Mentor | Founder of Fly Network',
       subbrole: 'Managing Director of Brand Stories Business Magazine',
       image: '/members/sami.jpg',
-      description: 'Sami K Haridas is an entrepreneur and startup mentor with a diverse corporate background. With more than 7 years of experience  in the hospitality industry, he has worked in different senior management roles. He has incorporated across top brands such as McDonalads, KFC and 5-star hotels, abroad including locations like  UAE and London. As an NRI businessman, he has developed valuable insights in the fast food and luxury hospitality sectors. In 2016 Sami ventured into entrepreneurship by founding his own brand, unfolding a new chapter in his career.'
+      description: `Sami K. Haridas is an accomplished entrepreneur and startup mentor with a solid foundation in the hospitality industry. 
+      With over seven years in senior management roles, he has worked with globally acclaimed brands, including McDonald’s, KFC, and 
+      premier 5-star hotels in the UAE and London. This diverse corporate journey has given him valuable expertise in managing fast-paced 
+      environments and delivering exceptional customer experiences.
+      As an NRI businessman, Sami has gained deep insights into the fast food and luxury hospitality sectors, enabling him to navigate 
+      the complexities of these industries with strategic insights. His ability to adapt to diverse markets has been instrumental in his success,
+       shaping his unique perspective as a leader and mentor.
+      In 2016, Sami ventured into entrepreneurship by establishing his own brand, marking a significant turning point in his career. 
+      This move allowed him to channel his industry knowledge into building a business that reflects his vision and values. 
+      Today, he continues to inspire through his intuitive approach, combining operational expertise with a passion for excellence.
+
+`
     }
   ];
 
