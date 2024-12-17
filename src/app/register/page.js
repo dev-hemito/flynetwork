@@ -189,7 +189,7 @@ export default function Home() {
 
                 <div className="justify-center items-center hidden md:flex">
                     <div className="border border-yellow-300 h-3/3 w-auto relative flex justify-center items-center" data-aos="fade-down">
-                        <Image width={1000} height={1000} src="/evnt.jpg" alt="Conference" className="h-full object-cover relative top-6 left-6"  />
+                        <Image width={1000} height={1000} src="/evnt2.jpg" alt="Conference" className="h-full object-cover relative top-6 left-6"  />
                     </div>
                 </div>
             </section>

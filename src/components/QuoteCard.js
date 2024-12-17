@@ -56,7 +56,7 @@ const QuoteCard = () => {
     };
 
     return (
-        <div className="min-h-screen p-4 flex items-center justify-center mt-12 ">
+        <div className="md:min-h-screen p-4 flex items-center justify-center mt-12 ">
             <div className="max-w-7xl w-full">
                 {/* Desktop Grid View */}
                 <div className="hidden lg:grid grid-cols-3 gap-6">

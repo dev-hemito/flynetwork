@@ -13,7 +13,7 @@ const EventsPage = () => {
     title: 'NextGen Entrepreneur Awards 2024',
     date: '2024-12-21T09:00:00',
     description: 'The FLY NextGen Awards 2024 is a premier platform dedicated to recognizing, inspiring and empowering young entrepreneurs to become the business leaders of tomorrow.',
-    image: '/evnt.jpg',
+    image: '/evnt2.jpg',
     slug: 'NextGen-Entrepreneur-Awards-2024',
   }];
 
