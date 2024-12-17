@@ -30,7 +30,7 @@ const TeamBoard = () => {
     { name: 'Dr. Thomas George K', role: 'Director - LEAD College of Management', image: '/members/thomas.jpg' },
     { name: 'Mr. Sunil Mathai', role: 'Founder - TradeTalks', image: '/members/akhil.jpg' },
     { name: 'Mr. Shihabudheen P K', role: 'CEO & Co-Founder,Hash Future School', image: '/members/shihab.jpg' },
-    { name: 'Mr. Prasobh P', role: 'CEO Hemito Digital', image: '/members/Image.jpg' },
+    { name: 'Mr. Prasobh P', role: 'CEO Hemito Digital', image: '/members/prashob.jpg' },
     { name: 'Dr. Ramesh K V', role: 'Public speaking coach', image: '/members/rameshs.jpg' },
     { name: 'Mr. Mujeeb Rahaman', role: 'Influencer ,Teacher My vlog', image: '/members/mujeeb.jpg' },
     { name: 'Mr. Subilal K', role: 'Automation Coach', image: '/members/subilal.jpg' },
